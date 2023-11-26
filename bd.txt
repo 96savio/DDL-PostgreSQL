@@ -1,0 +1,92 @@
+CREATE SCHEMA crud AUTHORIZATION postgres;
+
+COMMENT ON SCHEMA crud IS 'standard public schema';
+
+
+
+
+------
+
+CREATE TABLE crud.clientes (
+	cod_cliente serial NOT NULL,
+	nome_cliente varchar(20) NOT NULL,
+	sobrenome_cliente varchar(40) NOT NULL,
+	cpf varchar(13) NOT NULL,
+	CONSTRAINT clientes_pk PRIMARY KEY (cpf)
+);
+-------------
+
+
+CREATE TABLE crud.pedidos (
+	id_cliente varchar(20) NOT NULL,
+	imagem varchar(500) NULL,
+	descricao varchar(200) NULL,
+	id_produto varchar(50) NULL,
+	id_pedido numeric NULL,
+	preco numeric NULL
+);
+
+
+------
+
+
+CREATE TABLE crud.produtos (
+	id_produto serial NOT NULL,
+	descricao varchar(50) NULL,
+	imagem varchar(200) NOT NULL,
+	preco numeric NULL,
+	CONSTRAINT produto_pk PRIMARY KEY (id_produto)
+);
+
+---------------
+
+
+CREATE TABLE crud.usuarios (
+	id varchar(50) NOT NULL DEFAULT nextval('crud.usuarios_id_seq'::regclass),
+	nome varchar(20) NOT NULL,
+	email varchar(100) NOT NULL,
+	cpf varchar(13) NOT NULL,
+	senha varchar(100) NOT NULL,
+	permissao varchar(10) NULL DEFAULT 'USER'::character varying,
+	CONSTRAINT usuarios_pk_email PRIMARY KEY (email)
+);
+
+-----------
+CREATE SEQUENCE crud.clientes_cod_cliente_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+-------------
+
+CREATE SEQUENCE crud.clientes_codigo_cliente_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+--------------
+CREATE SEQUENCE crud.produtos_id_produto_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+-----------
+CREATE SEQUENCE crud.usuarios_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 2147483647
+	START 1
+	CACHE 1
+	NO CYCLE;
+
+
+INSERT INTO crud.usuarios
+(id, nome, email, cpf, senha, permissao)
+VALUES('40', 'savio2', 'teste@teste3.com', '44444', '$2b$15$yCMx4rKBhc8PpicnrkTqvuHw04/08OaCbNx6JcTdpur286Ymi/6eS', 'ADM');
